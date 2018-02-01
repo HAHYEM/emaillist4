@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="emaillist">
+
+ 	<resultMap type="com.javaex.vo.EmaillistVo" id="resultMapList">
+		<result column="no" property="no" />
+		<result column="first_name" property="firstName" />
+		<result column="last_name" property="lastName" />
+		<result column="email" property="email" />
+	</resultMap>
+	
+	
+
+	<select id="getList" resultType="EmailListVo">
+	<![CDATA[
+		SELECT no, last_name lastName, first_name firstName, email
+		FROM emaillist
+		ORDER BY no desc
+	]]>
+	</select>
+
+ 	<insert id="insert" parameterType="EmailListVo">
+	<![CDATA[
+		INSERT INTO emaillist
+		VALUES (seq_emaillist_no.nextval, 
+				#{lastName}, 
+				#{firstName}, 
+				#{email})
+	]]>
+	</insert>
+
+	<select id="getListByMap" parameterType="map" resultType="EmailListVo">
+	<![CDATA[
+		SELECT no, last_name lastName, first_name firstName, email
+		FROM emaillist 
+		WHERE lastName = #{lastName}
+		OR email = #{email}
+	]]>
+	</select>
+	
+	<!-- <update id="식별자" parameterType="기본자료형 또는 vo"></update> <delete id="식별자" 
+		parameterType="기본자료형 또는 vo"></delete> -->
+
+</mapper>
